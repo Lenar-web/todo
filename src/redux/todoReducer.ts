@@ -1,5 +1,6 @@
 import { ActionTypes } from "./ActionTypes";
 import { v4 as uuid } from "uuid";
+import { ToDo } from "../types/todo";
 const initialState: InitialStateType = {
   todo: [],
   filter: "All",
@@ -7,12 +8,6 @@ const initialState: InitialStateType = {
 type InitialStateType = {
   todo: Array<ToDo>;
   filter: string;
-};
-
-export type ToDo = {
-  text: string;
-  complited: boolean;
-  id: string;
 };
 
 export type ActionType =
@@ -32,7 +27,7 @@ const todoReducer = (
 
         todo: [
           ...state.todo,
-          { text: action.text, complited: false, id: uuid() },
+          { text: action.text, completed: false, id: uuid() },
         ],
       };
     case ActionTypes.TOGGLE_TODO:
@@ -40,7 +35,7 @@ const todoReducer = (
         ...state,
         todo: state.todo.map((item) => {
           if (item.id === action.id) {
-            return { ...item, complited: !item.complited };
+            return { ...item, completed: !item.completed };
           }
           return item;
         }),

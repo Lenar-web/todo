@@ -1,22 +1,20 @@
 import React, { FC } from "react";
 import Item from "./Item/Item";
-import { connect } from "react-redux";
-import { AppStateType } from "../../redux/store";
-import { ToDo } from "../../redux/todoReducer";
+import { useSelector } from "react-redux";
+import { ToDo } from "../../types/todo";
+import { filterSelector, todoSelector } from "../../redux/todoSelectors";
 
-type PropsType = {
-  todo: Array<ToDo>;
-  filter: string;
-};
-const List: FC<PropsType> = ({ todo, filter }: PropsType) => {
+const List: FC = () => {
+  const todo = useSelector(todoSelector);
+  const filter = useSelector(filterSelector);
   const filterToDo = (todo: Array<ToDo>, filter: string): Array<ToDo> => {
     switch (filter) {
       case "All":
         return todo;
-      case "Complited":
-        return todo.filter((item) => item.complited === true);
+      case "completed":
+        return todo.filter((item) => item.completed === true);
       case "Active":
-        return todo.filter((item) => item.complited === false);
+        return todo.filter((item) => item.completed === false);
       default:
         return todo;
     }
@@ -27,7 +25,7 @@ const List: FC<PropsType> = ({ todo, filter }: PropsType) => {
       <Item
         key={todo.id}
         text={todo.text}
-        complited={todo.complited}
+        completed={todo.completed}
         id={todo.id}
       />
     );
@@ -39,9 +37,4 @@ const List: FC<PropsType> = ({ todo, filter }: PropsType) => {
   );
 };
 
-const mapStateToProps = (store: AppStateType) => ({
-  todo: store.todo,
-  filter: store.filter,
-});
-
-export default connect(mapStateToProps)(List);
+export default List;

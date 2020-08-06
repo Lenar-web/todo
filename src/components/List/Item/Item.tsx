@@ -6,7 +6,7 @@ import { AppStateType } from "../../../redux/store";
 
 type PropsType = {
   text: string;
-  complited: boolean;
+  completed: boolean;
   id: string;
   onToggleToDo: (id: string) => void;
   onDeleteToDo: (id: string) => void;
@@ -14,14 +14,14 @@ type PropsType = {
 const Item: FC<PropsType> = ({
   text,
   id,
-  complited,
+  completed: completed,
   onToggleToDo,
   onDeleteToDo,
 }: PropsType) => {
-  const [checked, setChecked] = useState(complited);
+  const [checked, setChecked] = useState(completed);
   useEffect(() => {
-    setChecked(complited);
-  }, [complited]);
+    setChecked(completed);
+  }, [completed]);
   const handleChange = (e: SyntheticEvent) => {
     onToggleToDo(id);
   };
@@ -44,7 +44,7 @@ const Item: FC<PropsType> = ({
           onChange={handleChange}
         />
         <label className="custom-control-label" htmlFor={id}>
-          Complited
+          completed
         </label>
       </div>
       <button

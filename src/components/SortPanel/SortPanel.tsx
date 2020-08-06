@@ -26,10 +26,10 @@ const SortPanel: FC<PropsType> = ({ filter, setFilter }: PropsType) => {
         Active
       </li>
       <li
-        className={`nav-item nav-link ${activeItem("Complited")}`}
-        onClick={() => setFilter("Complited")}
+        className={`nav-item nav-link ${activeItem("completed")}`}
+        onClick={() => setFilter("completed")}
       >
-        Complited
+        completed
       </li>
     </ul>
   );
