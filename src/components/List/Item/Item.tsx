@@ -1,7 +1,7 @@
 import React, { FC, useState, useEffect, SyntheticEvent } from "react";
 import { Dispatch } from "redux";
 import { connect } from "react-redux";
-import { toggleToDo, deleteToDo, ActionType } from "../../../redux/todoReducer";
+import { toggleToDo, deleteToDo, TodoActionType } from "../../../redux/todoReducer";
 import { AppStateType } from "../../../redux/store";
 
 type PropsType = {
@@ -14,7 +14,7 @@ type PropsType = {
 const Item: FC<PropsType> = ({
   text,
   id,
-  completed: completed,
+  completed,
   onToggleToDo,
   onDeleteToDo,
 }: PropsType) => {
@@ -59,7 +59,7 @@ const Item: FC<PropsType> = ({
 };
 
 const mapStateToProps = (state: AppStateType) => ({});
-const mapDispatchToProps = (dispatch: Dispatch<ActionType>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<TodoActionType>) => ({
   onToggleToDo: (id: string) => dispatch(toggleToDo(id)),
   onDeleteToDo: (id: string) => dispatch(deleteToDo(id)),
 });

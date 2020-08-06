@@ -1,7 +1,7 @@
 import React, { FC, Dispatch } from "react";
 import { AppStateType } from "../../redux/store";
 import { connect } from "react-redux";
-import { ActionType, setFilter } from "../../redux/todoReducer";
+import { TodoActionType, setFilter } from "../../redux/todoReducer";
 
 type PropsType = {
   filter: string;
@@ -36,10 +36,10 @@ const SortPanel: FC<PropsType> = ({ filter, setFilter }: PropsType) => {
 };
 
 const mapStateToProps = (state: AppStateType) => ({
-  filter: state.filter,
+  filter: state.todo.filter
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<ActionType>) => ({
+const mapDispatchToProps = (dispatch: Dispatch<TodoActionType>) => ({
   setFilter: (filter: string) => dispatch(setFilter(filter)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(SortPanel);

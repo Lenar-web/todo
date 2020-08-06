@@ -19,7 +19,6 @@ const List: FC = () => {
         return todo;
     }
   };
-
   const toDos = filterToDo(todo, filter).map((todo: ToDo) => {
     return (
       <Item

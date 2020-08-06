@@ -7,22 +7,18 @@ const instance = axios.create({
 
 export const todoAPI = {
   fetchTodo() {
-    instance.get("todos").then((res) => {
-      return res.data;
-    });
+    return instance.get("todos").then((res) => res.data);
   },
   addTodo(todo: ToDo) {
-    instance.post("todos", todo).then((res) => {
-      return res.data;
-    });
+    instance.post("todos", todo).then((res) => res.data);
   },
   deleteTodo(id: number) {
     instance.delete(`todos/${id}`).then((res) => {
       return res.data;
     });
   },
-  updateTodo(id: number, completed: boolean) {
-    instance.put(`todos/${id}`, { completed }).then((res) => {
+  updateTodo(id: number, complited: boolean) {
+    instance.put(`todos/${id}`, { complited }).then((res) => {
       return res.data;
     });
   },

@@ -1,19 +1,16 @@
-import React, { FC, useState, SyntheticEvent, Dispatch } from "react";
-import { connect } from "react-redux";
-import { addToDo, ActionType } from "../../redux/todoReducer";
-import { AppStateType } from "../../redux/store";
+import React, { FC, useState, SyntheticEvent } from "react";
+import { useDispatch } from "react-redux";
+import { addToDo } from "../../redux/todoReducer";
 
-type PropsType = {
-  onAddToDo: (text: string) => void;
-};
-const Form: FC<PropsType> = ({ onAddToDo }: PropsType) => {
+const Form: FC = () => {
   const [input, setInput] = useState("");
+  const dispatch = useDispatch();
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     setInput(e.currentTarget.value);
   };
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    onAddToDo(input);
+    dispatch(addToDo(input));
     setInput("");
   };
   return (
@@ -36,10 +33,10 @@ const Form: FC<PropsType> = ({ onAddToDo }: PropsType) => {
     </form>
   );
 };
-const mapStateToProps = (state: AppStateType) => ({});
-const mapDispatchToProps = (dispatch: Dispatch<ActionType>) => ({
-  onAddToDo: (text: string) => {
-    dispatch(addToDo(text));
-  },
-});
-export default connect(mapStateToProps, mapDispatchToProps)(Form);
+// const mapStateToProps = (state: AppStateType) => ({});
+// const mapDispatchToProps = (dispatch: Dispatch<ActionType>) => ({
+//   onAddToDo: (text: string) => {
+//     dispatch(addToDo(text));
+//   },
+// });
+export default Form;
