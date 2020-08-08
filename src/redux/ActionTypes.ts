@@ -5,5 +5,6 @@ export enum ActionTypes {
   SET_FILTER,
   SET_All_TODO,
   SET_LOADING,
-  SET_AUTH
+  SET_AUTH,
+  SET_USER
 }

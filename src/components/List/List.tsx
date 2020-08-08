@@ -2,11 +2,12 @@ import React, { FC } from "react";
 import Item from "./Item/Item";
 import { useSelector } from "react-redux";
 import { ToDo } from "../../types/todo";
-import { filterSelector, todoSelector } from "../../redux/todoSelectors";
+import { filterSelector, todoSelector, loadingSelector } from "../../redux/selectors";
 
 const List: FC = () => {
   const todo = useSelector(todoSelector);
   const filter = useSelector(filterSelector);
+  const loading = useSelector(loadingSelector);
   const filterToDo = (todo: Array<ToDo>, filter: string): Array<ToDo> => {
     switch (filter) {
       case "All":
@@ -31,7 +32,7 @@ const List: FC = () => {
   });
   return (
     <div>
-      <div className="list-group">{toDos}</div>
+      <div className="list-group">{loading ? <h4>Loading...</h4> : toDos}</div>
     </div>
   );
 };

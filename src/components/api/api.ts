@@ -10,16 +10,21 @@ export const todoAPI = {
     return instance.get("todos").then((res) => res.data);
   },
   addTodo(todo: ToDo) {
-    instance.post("todos", todo).then((res) => res.data);
+    return instance.post("todos", todo).then((res) => res);
   },
-  deleteTodo(id: number) {
-    instance.delete(`todos/${id}`).then((res) => {
-      return res.data;
-    });
+  deleteTodo(id: string) {
+    return instance.delete(`todos/${id}`).then((res) => res);
   },
-  updateTodo(id: number, complited: boolean) {
-    instance.put(`todos/${id}`, { complited }).then((res) => {
-      return res.data;
-    });
+  updateTodo(id: string) {
+    return instance.put(`todos/${id}`).then((res) => res);
   },
+  login(name: string) {
+    return instance.post("login", { name }).then((res) => res);
+  },
+  getAuthUser() {
+    return instance.get("auth").then((res) => res.data);
+  },
+  signOut() {
+    return instance.put("signout").then((res) => res);
+  }
 };

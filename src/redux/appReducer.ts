@@ -2,16 +2,16 @@ import { ActionTypes } from "./ActionTypes";
 
 const initialState: InitialStateType = {
   isLoading: false,
-  isAuth: false,
+  user: null,
 };
 type InitialStateType = {
   isLoading: boolean;
-  isAuth: boolean;
+  user: string | null;
 };
 
 export type AppActionType =
   | ReturnType<typeof setLoading>
-  | ReturnType<typeof setAuth>;
+  | ReturnType<typeof setUser>;
 const appReducer = (
   state = initialState,
   action: AppActionType
@@ -22,10 +22,10 @@ const appReducer = (
         ...state,
         isLoading: action.payload,
       };
-    case ActionTypes.SET_AUTH:
+    case ActionTypes.SET_USER:
       return {
         ...state,
-        isAuth: action.payload,
+        user: action.payload,
       };
     default:
       return state;
@@ -37,9 +37,9 @@ export const setLoading = (payload: boolean) =>
     type: ActionTypes.SET_LOADING,
     payload,
   } as const);
-export const setAuth = (payload: boolean) =>
+export const setUser = (payload: string | null) =>
   ({
-    type: ActionTypes.SET_AUTH,
+    type: ActionTypes.SET_USER,
     payload,
   } as const);
 

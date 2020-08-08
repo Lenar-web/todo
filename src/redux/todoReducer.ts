@@ -1,5 +1,4 @@
 import { ActionTypes } from "./ActionTypes";
-import { v4 as uuid } from "uuid";
 import { ToDo } from "../types/todo";
 const initialState: InitialStateType = {
   todo: [],
@@ -11,9 +10,9 @@ type InitialStateType = {
 };
 
 export type TodoActionType =
-  | ReturnType<typeof addToDo>
-  | ReturnType<typeof toggleToDo>
-  | ReturnType<typeof deleteToDo>
+  | ReturnType<typeof addTodo>
+  | ReturnType<typeof toggleTodo>
+  | ReturnType<typeof deleteTodo>
   | ReturnType<typeof setFilter>
   | ReturnType<typeof setAllTodo>;
 
@@ -25,10 +24,7 @@ const todoReducer = (
     case ActionTypes.ADD_TODO:
       return {
         ...state,
-        todo: [
-          ...state.todo,
-          { text: action.text, completed: false, id: uuid() },
-        ],
+        todo: [...state.todo, { ...action.todo }],
       };
     case ActionTypes.TOGGLE_TODO:
       return {
@@ -53,26 +49,26 @@ const todoReducer = (
     case ActionTypes.SET_All_TODO:
       return {
         ...state,
-        todo: [...action.todoData]
+        todo: [...action.todoData],
       };
     default:
       return state;
   }
 };
 
-export const addToDo = (text: string) =>
+export const addTodo = (todo: ToDo) =>
   ({
     type: ActionTypes.ADD_TODO,
-    text,
+    todo,
   } as const);
 
-export const toggleToDo = (id: string) =>
+export const toggleTodo = (id: string) =>
   ({
     type: ActionTypes.TOGGLE_TODO,
     id,
   } as const);
 
-export const deleteToDo = (id: string) =>
+export const deleteTodo = (id: string) =>
   ({
     type: ActionTypes.DELETE_TODO,
     id,

@@ -1,32 +1,23 @@
 import React, { FC, useState, useEffect, SyntheticEvent } from "react";
-import { Dispatch } from "redux";
-import { connect } from "react-redux";
-import { toggleToDo, deleteToDo, TodoActionType } from "../../../redux/todoReducer";
-import { AppStateType } from "../../../redux/store";
+import { useDispatch } from "react-redux";
+import { onDeleteTodo, onChangeTodo } from "../../../redux/todoThunk";
 
 type PropsType = {
   text: string;
   completed: boolean;
   id: string;
-  onToggleToDo: (id: string) => void;
-  onDeleteToDo: (id: string) => void;
 };
-const Item: FC<PropsType> = ({
-  text,
-  id,
-  completed,
-  onToggleToDo,
-  onDeleteToDo,
-}: PropsType) => {
+const Item: FC<PropsType> = ({ text, id, completed }: PropsType) => {
   const [checked, setChecked] = useState(completed);
+  const dispatch = useDispatch();
   useEffect(() => {
     setChecked(completed);
   }, [completed]);
   const handleChange = (e: SyntheticEvent) => {
-    onToggleToDo(id);
+    dispatch(onChangeTodo(id));
   };
   const deleteToDo = (e: SyntheticEvent) => {
-    onDeleteToDo(id);
+    dispatch(onDeleteTodo(id));
   };
   return (
     <div
@@ -58,9 +49,4 @@ const Item: FC<PropsType> = ({
   );
 };
 
-const mapStateToProps = (state: AppStateType) => ({});
-const mapDispatchToProps = (dispatch: Dispatch<TodoActionType>) => ({
-  onToggleToDo: (id: string) => dispatch(toggleToDo(id)),
-  onDeleteToDo: (id: string) => dispatch(deleteToDo(id)),
-});
-export default connect(mapStateToProps, mapDispatchToProps)(Item);
+export default Item;

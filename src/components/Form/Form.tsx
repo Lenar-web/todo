@@ -1,6 +1,6 @@
 import React, { FC, useState, SyntheticEvent } from "react";
 import { useDispatch } from "react-redux";
-import { addToDo } from "../../redux/todoReducer";
+import { addNewTodo } from "../../redux/todoThunk";
 
 const Form: FC = () => {
   const [input, setInput] = useState("");
@@ -10,7 +10,7 @@ const Form: FC = () => {
   };
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(addToDo(input));
+    dispatch(addNewTodo(input));
     setInput("");
   };
   return (
